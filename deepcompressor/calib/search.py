@@ -252,9 +252,9 @@ class SearchBasedCalibrator(ABC, tp.Generic[_CONFIG, _CANDIDATE]):
             self.candidate_id = 0
 
     def _parse_ipts(self, ipts: TensorsCache | None, set_device: bool = False) -> TensorsCache | None:
-        if set_device:
-            self.opts_device = None
-        elif ipts is None:
+        if ipts is None:
+            if set_device:
+                self.opts_device = None
             return None
         if self.objective == SearchBasedCalibObjective.ProductsError:
             batch_size = self.config.element_batch_size
